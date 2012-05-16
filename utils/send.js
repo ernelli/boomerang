@@ -1,17 +1,45 @@
 var faye = require("faye");
-var boomerang = require("./boomerang.js");
+var boomerang = require("../lib/boomerang.js");
 
-var client = new faye.Client('http://localhost:8010/faye');
+var fayeServer = "http://localhost/faye";
+var subject, data;
+
+var narg = 2;
+var argv = process.argv;
+while(narg < argv.length) {
+    //console.log("arg[" + narg + "] = "  + argv[narg] );
+
+    if(argv[narg] == "-faye") {
+        fayeServer = argv[++narg];
+    }
+    else {
+        // default args
+
+        if(!subject) {
+            subject = argv[narg];
+        } else if(!data) {
+            data = argv[narg];
+        } 
+    }
+    narg++;
+}
+
+if(!subject || !data) {
+    console.log("usage: send [-faye server] subject data");
+    process.exit(1);
+}
+
+
+var client = new faye.Client(fayeServer);
 var request = new boomerang(client, false, function() {
                                 console.log("request/reply wrapper ready:");
                                 console.log("inboxSubject: " + request.getInboxSubject());
                                 
-                                request.sendRequest('/marvin/test', { text: process.argv[2] || "<empty>" }, function(msg) {
+                                request.sendRequest(subject, { data: data }, function(msg) {
                                                         console.log("got reply: ", msg);
                                                         process.exit();
                                                     });
                                 console.log("request send, wait for reply");
-
                             });
 
 
