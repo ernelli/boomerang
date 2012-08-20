@@ -1,0 +1,17 @@
+{
+  "author": "Mattias Ernelli <mattias@ernelli.com>",
+  "name": "boomerang",
+  "description": "Request/reply implementation on top of publish/subscribe, compatible with faye pubsub client",
+  "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ernelli/boomerang.git"
+  },
+  "main": "./lib/boomerang.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
