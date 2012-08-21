@@ -1,5 +1,5 @@
 var faye = require("faye");
-var boomerang = require("../lib/boomerang.js");
+var boomerang = require("boomerang");
 
 var fayeServer = "http://localhost/faye";
 var subject, msg;
@@ -42,6 +42,6 @@ var request = new boomerang(client, false, function() {
                                                         console.log("got reply: ", msg);
                                                         process.exit();
                                                     });
-                                console.log("request send, wait for reply");
+                                console.log("request sent, wait for reply");
                             });
 

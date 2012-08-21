@@ -1,5 +1,5 @@
 var faye = require("faye");
-var boomerang = require("../lib/boomerang.js");
+var boomerang = require("boomerang");
 
 var fayeServer = "http://localhost/faye";
 var subject, msg;
@@ -26,7 +26,7 @@ while(narg < argv.length) {
 }
 
 if(!subject) {
-    console.log("usage: listen [-faye server] subject [msg]");
+    console.log("usage: listen [-faye server] subject");
     process.exit(1);
 }
 
@@ -40,7 +40,7 @@ var request = new boomerang.Transport(client, function() {
                                 request.listen(subject, function(msg, inmsg) {
                                                    console.log("got message on " + subject + ": ", msg);
                                                    request.sendReply( msg, inmsg);
-                                                   console.log("reply sent");
+                                                   console.log("reply sent to: " + inmsg.replySubject);
                                                });
                             });
 
